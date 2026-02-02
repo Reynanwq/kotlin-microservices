@@ -72,4 +72,14 @@ class TaskController(
         return ResponseEntity.ok(mapOf("deletedCount" to deletedCount))
     }
 
+    @PostMapping("/{id}/process-action")
+    fun processTaskAction(
+        @PathVariable id: Long,
+        @RequestParam action: String,
+        @RequestBody(required = false) payload: Map<String, Any>?
+    ): ResponseEntity<TaskResponse> {
+        val result = taskService.processTaskAction(id, action, payload)
+        return ResponseEntity.ok(result)
+    }
+
 }
